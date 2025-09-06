@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout – Kasavu Saree</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .checkout-container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .order-summary {
+      margin-bottom: 30px;
+    }
+
+    .order-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding: 12px 0;
+    }
+
+    .order-item img {
+      width: 60px;
+      border-radius: 4px;
+      margin-right: 20px;
+    }
+
+    .item-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .details {
+      flex: 1;
+      font-size: 14px;
+    }
+
+    .details h4 {
+      margin: 0 0 5px;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    form label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    form textarea {
+      resize: vertical;
+    }
+
+    .confirm-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 14px;
+      background-color: orange;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .confirm-btn:hover {
+      background-color: darkorange;
+    }
+
+    #successMessage {
+      display: none;
+      text-align: center;
+      font-size: 18px;
+      color: green;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Checkout</h1>
+  <div class="checkout-container">
+    <div class="order-summary" id="orderSummary">
+      <!-- Filled dynamically -->
+    </div>
+
+    <form id="addressForm" onsubmit="return confirmCheckout(event)">
+      <label for="customerName">Name</label>
+      <input type="text" id="customerName" required />
+
+      <label for="customerPhone">Phone Number</label>
+      <input type="tel" id="customerPhone" pattern="[0-9]{10}" required />
+
+      <label for="customerAddress">Address</label>
+      <textarea id="customerAddress" rows="3" required></textarea>
+
+      <label for="customerCity">City</label>
+      <input type="text" id="customerCity" required />
+
+      <label for="customerPincode">Pincode</label>
+      <input type="text" id="customerPincode" pattern="[0-9]{6}" required />
+
+      <h3 style="margin-top: 30px;">Scan to Pay</h3>
+<img src="./images/sarees1/QR_code" alt="UPI QR Code" style="width: 200px; display: block; margin: 15px auto;" />
+<p style="text-align: center;">UPI ID: <strong>rishadha@upi</strong></p>
+
+
+      <button type="submit" class="confirm-btn">Confirm & Pay ₹<span id="orderTotal">0.00</span></button>
+
+    </form>
+
+    <div id="successMessage">✅ Your order has been successfully placed!</div>
+  </div>
+  
+
+  <script>
+    const orderSummaryDiv = document.getElementById("orderSummary");
+    const orderTotalSpan = document.getElementById("orderTotal");
+    const successMessage = document.getElementById("successMessage");
+
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem("rishadhaCart")) || [];
+
+    function renderOrderSummary() {
+      if (cart.length === 0) {
+        orderSummaryDiv.innerHTML = `<p>Your cart is empty. <a href="sareecollection.html">Go back and add items.</a></p>`;
+        document.getElementById("addressForm").style.display = "none";
+        return;
+      }
+
+      let html = '<h2>Order Summary</h2>';
+      let total = 0;
+
+      cart.forEach(item => {
+        const subtotal = item.qty * item.price;
+        total += subtotal;
+
+        html += `
+          <div class="order-item">
+            <div class="item-info">
+              <img src="${item.image}" alt="${item.name}" />
+              <div class="details">
+                <h4>${item.name}</h4>
+                Size: ${item.size} | Qty: ${item.qty} | Price: ₹${item.price.toFixed(2)}
+              </div>
+            </div>
+            <div>₹${subtotal.toFixed(2)}</div>
+          </div>
+        `;
+      });
+
+      html += `<div class="total">Grand Total: ₹${total.toFixed(2)}</div>`;
+      orderSummaryDiv.innerHTML = html;
+      orderTotalSpan.textContent = total.toFixed(2);
+    }
+
+    
+
+    function confirmCheckout(event) {
+      event.preventDefault();
+
+      // Simulate processing (e.g. send to server)
+      successMessage.style.display = "block";
+      document.getElementById("addressForm").style.display = "none";
+
+      // Clear cart data
+      localStorage.removeItem("rishadhaCart");
+
+      setTimeout(() => {
+  window.location.href = "index.html"; // Change to your home page URL if it's different
+}, 1000);
+
+      return false;
+    }
+
+    // Initialize on page load
+    renderOrderSummary();
+  </script>
+</body>
+
+</html>

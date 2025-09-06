@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .cart-container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 0;
+    }
+
+    .cart-item img {
+      width: 80px;
+      border-radius: 6px;
+      margin-right: 20px;
+    }
+
+    .item-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .item-details {
+      flex-grow: 1;
+    }
+
+    .item-details h4 {
+      margin: 0 0 5px;
+    }
+
+    .item-details p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-control input {
+      width: 40px;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: red;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .cart-total {
+      text-align: right;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .cart-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .cart-buttons a,
+    .checkout-btn {
+      padding: 12px 20px;
+      background-color: orange;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .cart-buttons a:hover,
+    .checkout-btn:hover {
+      background-color: darkorange;
+    }
+
+    @media (max-width: 700px) {
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .item-info {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cart-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Shopping Cart</h1>
+
+  <div class="cart-container" id="cartContainer">
+    <!-- Items will be injected here -->
+  </div>
+
+  <script>
+    // Example cart array (should come from localStorage or server ideally)
+    let cart = JSON.parse(localStorage.getItem("rishadhaCart")) || [];
+
+    const container = document.getElementById("cartContainer");
+
+    function renderCart() {
+      if (cart.length === 0) {
+        container.innerHTML = `<p style="text-align: center;">🛒 Your cart is empty.</p>
+        <div style="text-align: center; margin-top: 20px;">
+          <a href="index.html" class="checkout-btn">Continue Shopping</a>
+        </div>`;
+        return;
+      }
+
+      let html = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const itemTotal = item.qty * item.price;
+        total += itemTotal;
+
+        html += `
+          <div class="cart-item">
+            <div class="item-info">
+              <img src="${item.image || './images/1/1.webp'}" alt="${item.name || 'Saree'}" />
+              <div class="item-details">
+                <h4>${item.name || 'Kasavu Saree'}</h4>
+                <p>Size: ${item.size}</p>
+                <p>Price: ₹${item.price}</p>
+              </div>
+            </div>
+            <div class="qty-control">
+              <button onclick="decreaseQty(${index})">-</button>
+              <input type="number" value="${item.qty}" readonly />
+              <button onclick="increaseQty(${index})">+</button>
+            </div>
+            <div style="width: 100px; text-align: right;">₹${itemTotal.toFixed(2)}</div>
+            <button class="remove-btn" onclick="removeItem(${index})">×</button>
+          </div>
+        `;
+      });
+
+      html += `<div class="cart-total">Grand Total: ₹${total.toFixed(2)}</div>
+      <div class="cart-buttons">
+        <a href="index.html">← Continue Shopping</a>
+        <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+      </div>`;
+
+      container.innerHTML = html;
+    }
+
+    function increaseQty(index) {
+      cart[index].qty += 1;
+      saveCart();
+    }
+
+    function decreaseQty(index) {
+      if (cart[index].qty > 1) {
+        cart[index].qty -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+      saveCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      saveCart();
+    }
+
+    function saveCart() {
+      localStorage.setItem("rishadhaCart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function goToCheckout() {
+      window.location.href = "checkout.html";
+    }
+
+    // Initialize
+    renderCart();
+  </script>
+
+</body>
+</html>

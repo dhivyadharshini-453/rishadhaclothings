@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kerala Saree Online - All Collections</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fafafa;
+    }
+
+    h2 {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      position: relative;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      max-height: 200px;
+      object-fit: cover;
+    }
+
+    .product-title {
+      font-weight: bold;
+      font-size: 15px;
+      margin: 10px 0 5px;
+      text-align: center;
+    }
+
+    .price {
+      font-size: 14px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 8px;
+    }
+
+    .new-price {
+      color: green;
+      font-weight: bold;
+    }
+
+    button.add-to-cart {
+      background-color: #f4a300;
+      color: black;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      padding: 10px 20px;
+      cursor: pointer;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    button.add-to-cart:hover {
+      background-color: #d18c00;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back to Main Page Button -->
+<div style="text-align: left; margin: 10px 20px;">
+  <a href="index.html" 
+     style="
+       display: inline-block;
+       padding: 6px 12px;
+       background: #f4a300;
+       color: black;
+       border-radius: 20px;
+       font-weight: 600;
+       font-size: 13px;
+       text-decoration: none;
+       box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+       transition: background-color 0.3s ease;
+     "
+     onmouseover="this.style.backgroundColor='#d18c00';"
+     onmouseout="this.style.backgroundColor='#f4a300';"
+  >
+    ← Back
+  </a>
+</div>
+
+  <h2>Kerala Saree Collections</h2>
+
+  <div class="product-grid" id="productGrid">
+    <!-- Products will be injected here by JS -->
+  </div>
+
+  <script>
+    // Product data array
+    const products = [
+      {
+        id: 1,
+        name: "Golden Embroidery Tissue Saree",
+        price: 2105,
+        oldPrice: 2345,
+        image: "./images/sarees1/img1.webp",
+      },
+      {
+        id: 2,
+        name: "Pink & Green Embroidery Kasavu",
+        price: 1699,
+        oldPrice: null,
+        image: "./images/sarees1/img2",
+      },
+      {
+        id: 3,
+        name: "Hand Painted Lotus Saree",
+        price: 1665,
+        oldPrice: 1899,
+        image: "./images/sarees1/img3",
+      },
+      {
+        id: 4,
+        name: "Soft Fabric Onam Saree",
+        price: 1149,
+        oldPrice: 1500,
+        image: "./images/sarees1/img4",
+      },
+        {
+        id: 5,
+        name: "Kasavu with Lotus Design",
+        price: 1149,
+        oldPrice: 1500,
+        image: "./images/sarees1/img5",
+      },
+        {
+        id: 6,
+        name: "Kalamkari Tissue Kasavu",
+        price: 1149,
+        oldPrice: 1500,
+        image: "./images/sarees1/img6.jpg",
+      },
+        {
+        id: 7,
+        name: "Check Kalamkari Onam Saree",
+        price: 1149,
+        oldPrice: 1500,
+        image: "./images/sarees1/img7.jpg",
+      },
+        {
+        id: 8,
+        name: "Traditional Ivory Saree",
+        price: 1149,
+        oldPrice: 1500,
+        image: "./images/sarees1/img8.jpg",
+      },
+        {
+        id: 9,
+        name: "Silk Blend with Block Print",
+        price: 1149,
+        oldPrice: 1500,
+        image: "./images/sarees1/img9.jpg",
+      },
+        {
+        id: 10,
+        name: "Contrast Border Plain Saree",
+        price: 1149,
+        oldPrice: 1500,
+        image: "./images/sarees1/img10.webp",
+      },
+        {
+        id: 11,
+        name: "Fancy Gold Border Saree",
+        price: 1149,
+        oldPrice: 1500,
+        image: "./images/sarees1/img11.avif",
+      },
+        {
+        id: 12,
+        name: "Temple Design Cotton Saree",
+        price: 1149,
+        oldPrice: 1500,
+        image: "./images/sarees1/img12.avif",
+      },
+
+
+     
+    ];
+
+    const productGrid = document.getElementById("productGrid");
+
+    function renderProducts() {
+  productGrid.innerHTML = "";
+
+  products.forEach(product => {
+    const priceHTML = product.oldPrice
+      ? `<span class="old-price">Rs. ${product.oldPrice.toLocaleString()}</span><span class="new-price">Rs. ${product.price.toLocaleString()}</span>`
+      : `Rs. ${product.price.toLocaleString()}`;
+
+    const productHTML = document.createElement("div");
+    productHTML.className = "product-card";
+
+    productHTML.innerHTML = `
+      <a href="product${product.id}.html" style="text-decoration: none; color: inherit;">
+        <img src="${product.image}" alt="${product.name}" />
+        <div class="product-title">${product.name}</div>
+      </a>
+      <div class="price">${priceHTML}</div>
+      <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+    `;
+
+    productGrid.appendChild(productHTML);
+  });
+}
+
+
+    // Load existing cart from localStorage or create empty array
+    let cart = JSON.parse(localStorage.getItem("rishadhaCart")) || [];
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      // Check if product already in cart
+      const existingIndex = cart.findIndex(item => item.id === product.id);
+      if (existingIndex > -1) {
+        cart[existingIndex].qty += 1;  // Increase qty if exists
+      } else {
+        // Add new product with qty 1
+        cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          qty: 1,
+          image: product.image,
+        });
+      }
+
+      // Save updated cart in localStorage
+      localStorage.setItem("rishadhaCart", JSON.stringify(cart));
+
+      
+    }
+
+    // Initial rendering
+    renderProducts();
+  </script>
+
+</body>
+</html>

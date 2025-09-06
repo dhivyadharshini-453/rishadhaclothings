@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kasavu Saree</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      display: flex;
+      max-width: 1200px;
+      width: 100%;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .left,
+    .right {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .left img#mainImage {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .thumbnail-gallery {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .thumbnail-gallery img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .thumbnail-gallery img:hover {
+      border-color: orange;
+      transform: scale(1.05);
+    }
+
+    .product-title {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .price {
+      margin: 10px 0;
+      font-size: 20px;
+    }
+
+    .price del {
+      color: #888;
+      margin-right: 10px;
+    }
+
+    .sale-badge {
+      background-color: orange;
+      color: white;
+      font-size: 14px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .quantity {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quantity button {
+      width: 30px;
+      height: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      transition: background-color 0.3s;
+    }
+
+    .quantity button:hover {
+      background-color: orange;
+      color: white;
+    }
+
+    .quantity input {
+      width: 50px;
+      text-align: center;
+      font-size: 16px;
+      margin: 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 4px;
+    }
+
+    .size-select {
+      margin: 15px 0;
+    }
+
+    select {
+      padding: 6px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .buttons {
+      margin: 15px 0;
+    }
+
+    .buttons button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: 2px solid orange;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .add-to-cart {
+      background-color: white;
+      color: orange;
+    }
+
+    .add-to-cart:hover {
+      background-color: orange;
+      color: white;
+    }
+
+    .buy-now {
+      background-color: orange;
+      border: none;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .buy-now:hover {
+      background-color: darkorange;
+    }
+
+    .details {
+      margin-top: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .details span {
+      font-weight: bold;
+    }
+
+    .extra-info {
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+
+    .extra-info h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .share {
+      margin-top: 20px;
+      color: #f59e0b;
+      cursor: pointer;
+    }
+
+    .cart {
+      width: 350px;
+      border: 1px solid #eee;
+      padding: 20px;
+      border-radius: 8px;
+      background: #fafafa;
+      height: fit-content;
+      font-size: 14px;
+    }
+
+    .cart h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-item div {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .cart-item .remove-btn {
+      background: transparent;
+      border: none;
+      color: red;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .cart-total {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+      text-align: right;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-content img {
+      width: 250px;
+      margin-bottom: 15px;
+    }
+
+    .modal-content .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #333;
+    }
+
+    form input,
+    form textarea {
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    form label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+      text-align: left;
+    }
+
+    /* Confirmation message */
+    #orderMessage {
+      display: none;
+      color: green;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cart {
+        width: 100%;
+        max-width: 400px;
+        margin-top: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div style="text-align: left; margin: 10px 20px;">
+    <a href="keralasaree.html" style="display: inline-block; padding: 6px 12px; background: #f4a300; color: black;
+       border-radius: 20px; font-weight: 600; font-size: 13px; text-decoration: none;
+       box-shadow: 1px 1px 5px rgba(0,0,0,0.2); transition: background-color 0.3s ease;"
+       onmouseover="this.style.backgroundColor='#d18c00';"
+       onmouseout="this.style.backgroundColor='#f4a300';">
+      ← Back
+    </a>
+  </div>
+
+  <div class="container">
+    <div class="left">
+      <img id="mainImage" src="./images/1/main_saree.webp" alt="Main Saree Image" />
+      <div class="thumbnail-gallery">
+        <img src="./images/1/1.webp" onclick="changeImage(this)" />
+        <img src="./images/1/2.webp" onclick="changeImage(this)" />
+        <img src="./images/1/3.webp" onclick="changeImage(this)" />
+        <img src="./images/1/4.webp" onclick="changeImage(this)" />
+      </div>
+    </div>
+
+    <div class="right">
+      <p style="font-size: 12px; text-transform: uppercase;">
+        Use Code for Extra Discount: <strong>Rishadha2025</strong>
+      </p>
+      <div class="product-title">Rishadha Tissue Kasavu Saree with Golden Embroidery Work</div>
+      <div class="price">
+        <del>Rs. 2,605.00</del>
+        <span style="color: green; font-weight: bold;">Rs. 2,105.00</span>
+        <span class="sale-badge">Sale</span>
+      </div>
+
+      <p style="font-size: 14px; color: gray;">Shipping calculated at checkout.</p>
+
+      <div class="size-select">
+        <label><strong>Select Size:</strong></label>
+        <select id="sizeSelect">
+          <option value="Free Size" selected>Free Size</option>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+        </select>
+      </div>
+
+      <div class="quantity">
+        <button onclick="decreaseQty()">-</button>
+        <input type="number" value="1" min="1" id="qtyInput" />
+        <button onclick="increaseQty()">+</button>
+      </div>
+
+      <div class="buttons">
+        <button class="add-to-cart" onclick="addToCart()">Add to cart</button>
+        <button class="buy-now" onclick="openModal()">Buy it now</button>
+      </div>
+
+      <div class="details">
+        <p><span>Fabric</span>: Tissue</p>
+        <p><span>Weaving Method</span>: Power Loom</p>
+        <p><span>Colour</span>: Off White</p>
+        <p><span>Tussels</span>: No</p>
+        <p><span>Blouse</span>: With approx. 1 mtr</p>
+        <p>SRDF 126 KL</p>
+      </div>
+
+      <div class="extra-info">
+        <h3>More About This Product:</h3>
+        <p>This beautiful tissue kasavu saree is perfect for traditional events and festive occasions.</p>
+      </div>
+
+      <div class="share">🔗 Share</div>
+    </div>
+
+    <div class="cart" id="cart">
+      <h3>Your Cart</h3>
+      <div id="cartItems">
+        <p>No items added yet.</p>
+      </div>
+      <div class="cart-total" id="cartTotal">Total: Rs. 0.00</div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">×</span>
+      <h3>Shipping Details & Payment</h3>
+      <form id="orderForm" onsubmit="return confirmOrder(event)">
+        <label>Name:</label>
+        <input type="text" id="customerName" required />
+
+        <label>Phone Number:</label>
+        <input type="tel" id="customerPhone" required pattern="[0-9]{10}" />
+
+        <label>Shipping Address:</label>
+        <textarea id="customerAddress" rows="3" required></textarea>
+
+        <label>City:</label>
+        <input type="text" id="customerCity" required />
+
+        <label>Pincode:</label>
+        <input type="text" id="customerPincode" required pattern="[0-9]{6}" />
+
+        <hr />
+        <h4>Scan & Pay with UPI</h4>
+        <img src="./images/sarees1/QR_code" alt="QR Code" style="width: 200px;" />
+        <p>UPI ID: <strong>Rishadha@upi</strong></p>
+        <p><strong>Total Amount: ₹<span id="totalAmount">2105.00</span></strong></p>
+
+        <button type="submit"
+          style="width: 100%; background-color: orange; color: white; font-size: 16px; padding: 12px; border: none; border-radius: 5px; cursor: pointer;">
+          Confirm Order
+        </button>
+      </form>
+
+      <!-- ✅ Confirmation message -->
+      <div id="orderMessage">✅ Your order has been confirmed!</div>
+    </div>
+  </div>
+
+  <script>
+    const productPrice = 2105.00;
+    const qtyInput = document.getElementById("qtyInput");
+    const totalAmountSpan = document.getElementById("totalAmount");
+    const cartItemsDiv = document.getElementById("cartItems");
+    const cartTotalDiv = document.getElementById("cartTotal");
+    const sizeSelect = document.getElementById("sizeSelect");
+    const modal = document.getElementById("paymentModal");
+    const orderMessage = document.getElementById("orderMessage");
+
+    // Load cart from localStorage or empty array
+    let cart = JSON.parse(localStorage.getItem("rishadhaCart")) || [];
+
+    function changeImage(el) {
+      document.getElementById("mainImage").src = el.src;
+    }
+
+    function increaseQty() {
+      qtyInput.value = parseInt(qtyInput.value) + 1;
+    }
+
+    function decreaseQty() {
+      let val = parseInt(qtyInput.value);
+      if (val > 1) qtyInput.value = val - 1;
+    }
+
+    function addToCart() {
+      const qty = parseInt(qtyInput.value);
+      const size = sizeSelect.value;
+      if (qty < 1) return;
+
+      const product = {
+        name: "Rishadha Tissue Kasavu Saree",
+        size: size,
+        qty: qty,
+        price: productPrice,
+        image: document.getElementById("mainImage").src
+      };
+
+      // Check if same product size already in cart
+      const existingIndex = cart.findIndex(item => item.size === size);
+      if (existingIndex > -1) {
+        cart[existingIndex].qty += qty;
+      } else {
+        cart.push(product);
+      }
+
+      localStorage.setItem("rishadhaCart", JSON.stringify(cart));
+      renderCart();
+      
+    }
+
+    function removeCartItem(index) {
+      if (index > -1 && index < cart.length) {
+        cart.splice(index, 1);
+        localStorage.setItem("rishadhaCart", JSON.stringify(cart));
+        renderCart();
+      }
+    }
+
+    function renderCart() {
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = "<p>No items added yet.</p>";
+        cartTotalDiv.textContent = "Total: Rs. 0.00";
+        totalAmountSpan.textContent = "0.00";
+        return;
+      }
+
+      let html = "";
+      let total = 0;
+
+      cart.forEach((item, idx) => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+
+        html += `
+          <div class="cart-item">
+            <div><img src="${item.image}" alt="${item.name}"/></div>
+            <div>
+              <strong>${item.name}</strong><br/>
+              Size: ${item.size}<br/>
+              Qty: ${item.qty}<br/>
+              Price: Rs. ${item.price.toFixed(2)}<br/>
+              Subtotal: Rs. ${itemTotal.toFixed(2)}
+            </div>
+            <button class="remove-btn" onclick="removeCartItem(${idx})" title="Remove item">×</button>
+          </div>
+        `;
+      });
+
+      cartItemsDiv.innerHTML = html;
+      cartTotalDiv.textContent = `Total: Rs. ${total.toFixed(2)}`;
+      totalAmountSpan.textContent = total.toFixed(2);
+    }
+
+    function openModal() {
+      if (cart.length === 0) {
+        alert("Your cart is empty. Please add items to cart before buying.");
+        return;
+      }
+      modal.style.display = "flex";
+      orderMessage.style.display = "none";
+      document.getElementById("orderForm").style.display = "block";
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    function confirmOrder(event) {
+      event.preventDefault();
+      // Normally here you’d send the form data to a server...
+
+      // For demo: show confirmation and clear cart
+      orderMessage.style.display = "block";
+      document.getElementById("orderForm").style.display = "none";
+
+      // Clear cart
+      cart = [];
+      localStorage.removeItem("rishadhaCart");
+      renderCart();
+
+      // Reset form fields after 2 sec
+      setTimeout(() => {
+        closeModal();
+        document.getElementById("orderForm").reset();
+      }, 2000);
+
+      return false;
+    }
+
+    // Render cart on page load
+    renderCart();
+
+    // Optional: update qty input if user manually changes value
+    qtyInput.addEventListener("input", () => {
+      let val = parseInt(qtyInput.value);
+      if (isNaN(val) || val < 1) qtyInput.value = 1;
+    });
+  </script>
+</body>
+
+</html>

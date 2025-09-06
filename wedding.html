@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kerala Saree Online</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fafafa;
+    }
+
+    h2 {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      position: relative;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .sale-badge,
+    .sold-out {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 4px;
+      color: #fff;
+    }
+
+    .sale-badge {
+      background: #e67e22;
+    }
+
+    .sold-out {
+      background: #7f8c8d;
+    }
+
+    .product-title {
+      font-weight: bold;
+      font-size: 15px;
+      margin: 10px 0 5px;
+    }
+
+    .price {
+      font-size: 14px;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 8px;
+    }
+
+    .new-price {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back to Main Page Button -->
+<div style="text-align: left; margin: 10px 20px;">
+  <a href="index.html" 
+     style="
+       display: inline-block;
+       padding: 6px 12px;
+       background: #f4a300;
+       color: black;
+       border-radius: 20px;
+       font-weight: 600;
+       font-size: 13px;
+       text-decoration: none;
+       box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+       transition: background-color 0.3s ease;
+     "
+     onmouseover="this.style.backgroundColor='#d18c00';"
+     onmouseout="this.style.backgroundColor='#f4a300';"
+  >
+    ← Back
+  </a>
+</div>
+
+  <h2>Kerala Sarees</h2>
+
+  <div class="product-grid">
+
+    <!-- Loop Starts: Product 1 to 20 -->
+    <!-- Product 1 -->
+   <div class="product-card">
+  <a href="keralasaree.html" style="text-decoration: none; color: inherit;">
+    <img src="./images/sarees1/img1.webp" alt="Golden Embroidery Tissue Saree">
+    <div class="product-title">Golden Embroidery Tissue Saree</div>
+  </a>
+  <div class="price">
+    <span class="old-price">Rs. 2,345.00</span>
+    <span class="new-price">Rs. 2,105.00</span>
+  </div>
+</div>
+
+    <!-- Product 2 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img2" alt="Product 2">
+      <div class="product-title">Pink & Green Embroidery Kasavu</div>
+      <div class="price">Rs. 1,699.00</div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card">
+       <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img3" alt="Product 3">
+      <div class="product-title">Hand Painted Lotus Saree</div>
+      <div class="price"><span class="old-price">Rs. 1,899.00</span><span class="new-price">Rs. 1,665.00</span></div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img4" alt="Product 4">
+      <div class="product-title">Soft Fabric Onam Saree</div>
+      <div class="price"><span class="old-price">Rs. 1,500.00</span><span class="new-price">Rs. 1,149.00</span></div>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img5" alt="Product 5">
+      <div class="product-title">Kasavu with Lotus Design</div>
+      <div class="price">Rs. 1,495.00</div>
+    </div>
+
+    <!-- Product 6 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img6.jpg" alt="Product 6">
+      <div class="product-title">Kalamkari Tissue Kasavu</div>
+      <div class="price">Rs. 1,579.00</div>
+    </div>
+
+    <!-- Product 7 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img7.jpg" alt="Product 7">
+      <div class="product-title">Check Kalamkari Onam Saree</div>
+      <div class="price"><span class="old-price">Rs. 2,345.00</span><span class="new-price">Rs. 1,579.00</span></div>
+    </div>
+
+    <!-- Product 8 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img8.jpg" alt="Product 8">
+      <div class="product-title">Traditional Ivory Saree</div>
+      <div class="price">Rs. 1,249.00</div>
+    </div>
+
+    <!-- Product 9 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img9.jpg" alt="Product 9">
+      <div class="product-title">Silk Blend with Block Print</div>
+      <div class="price"><span class="old-price">Rs. 2,099.00</span><span class="new-price">Rs. 1,799.00</span></div>
+    </div>
+
+    <!-- Product 10 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img10.webp" alt="Product 10">
+      <div class="product-title">Contrast Border Plain Saree</div>
+      <div class="price">Rs. 1,050.00</div>
+    </div>
+
+    <!-- Product 11 -->
+    <div class="product-card">
+     <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img11.avif" alt="Product 11">
+      <div class="product-title">Fancy Gold Border Saree</div>
+      <div class="price">Rs. 1,299.00</div>
+    </div>
+
+    <!-- Product 12 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img12.avif" alt="Product 12">
+      <div class="product-title">Temple Design Cotton Saree</div>
+      <div class="price">Rs. 1,599.00</div>
+    </div>
+
+    <!-- Product 13 -->
+    <div class="product-card">
+     <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img13.jpg" alt="Product 13">
+      <div class="product-title">Designer Kasavu for Wedding</div>
+      <div class="price"><span class="old-price">Rs. 2,199.00</span><span class="new-price">Rs. 1,849.00</span></div>
+    </div>
+
+    <!-- Product 14 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img14.jpg" alt="Product 14">
+      <div class="product-title">Kasavu Saree with Peacock Art</div>
+      <div class="price">Rs. 1,749.00</div>
+    </div>
+
+    <!-- Product 15 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img15.jpg" alt="Product 15">
+      <div class="product-title">Elegant Kerala Party Wear Saree</div>
+      <div class="price">Rs. 1,699.00</div>
+    </div>
+
+    <!-- Product 16 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img16.webp" alt="Product 16">
+      <div class="product-title">Royal Blue Border Kasavu</div>
+      <div class="price">Rs. 1,599.00</div>
+    </div>
+
+    <!-- Product 17 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img17.jpg" alt="Product 17">
+      <div class="product-title">Cotton Kasavu Saree - Green Border</div>
+      <div class="price">Rs. 1,199.00</div>
+    </div>
+
+    <!-- Product 18 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img18.jpg" alt="Product 18">
+      <div class="product-title">Lightweight Festive Saree</div>
+      <div class="price"><span class="old-price">Rs. 1,899.00</span><span class="new-price">Rs. 1,499.00</span></div>
+    </div>
+
+    <!-- Product 19 -->
+    <div class="product-card">
+      <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img19.jpg" alt="Product 19">
+      <div class="product-title">Off White Saree with Red Pallu</div>
+      <div class="price">Rs. 1,349.00</div>
+    </div>
+
+    <!-- Product 20 -->
+    <div class="product-card">
+       <a href="keralasaree.html" style="text-decoration: none; color: inherit;"></a>
+      <img src="./images/sarees1/img20.jpg" alt="Product 20">
+      <div class="product-title">Premium Wedding Collection Saree</div>
+      <div class="price"><span class="old-price">Rs. 2,599.00</span><span class="new-price">Rs. 2,149.00</span></div>
+    </div>
+
+  </div>
+</body>
+</html>
